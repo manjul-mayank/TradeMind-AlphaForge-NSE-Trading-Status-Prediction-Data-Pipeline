@@ -1,11 +1,44 @@
-# Trading Status & Prediction Data Pipeline (NSE)
+# TradeMind AlphaForge: NSE Trading Status & Prediction Data Pipeline  
 
-A ready-to-run, modular pipeline that:
-- Ingests **NSE equity bhavcopy** data (unofficial endpoints).
-- Engineers robust **technical features** (SMA/EMA/RSI/MACD/Bollinger/ATR, lags).
-- Creates **labels** for classification (buy/hold/sell) or regression (next-day return).
-- Trains a baseline **ML model** (RandomForest/LogReg).
-- Runs a simple **backtest** and saves an equity curve report.
+![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg) ![Build](https://img.shields.io/badge/build-passing-brightgreen.svg) ![License](https://img.shields.io/badge/license-MIT-yellow.svg) ![Contributions](https://img.shields.io/badge/contributions-welcome-orange.svg)  
+
+A modular **AI-powered quantitative trading pipeline** built for **NSE equity data**. This project ingests historical stock data, engineers technical indicators, labels signals, trains ML models, backtests performance, and generates equity curve reports.  
+
+⚡ With **TradeMind AlphaForge**, you can go from **raw market data → predictive trading signals → backtested equity curves** in a single automated pipeline.   
+
+![Pipeline](./Pipeline%20image.png)
+
+---
+
+## 🚀 Features  
+
+- **Data Ingestion**  
+  - Fetches **NSE equity bhavcopy** (unofficial endpoints).  
+  - Saves raw CSVs per symbol in `data/raw/`.  
+
+- **Feature Engineering**  
+  - Calculates powerful **technical indicators**:  
+    - SMA, EMA, RSI, MACD, Bollinger Bands, ATR  
+    - Price lags and statistical features  
+  - Prepares `data/processed/` datasets for ML.  
+
+- **Labeling**  
+  - Creates **Buy / Hold / Sell** classification labels.  
+  - Supports regression targets for **next-day returns**.  
+
+- **Model Training**  
+  - Baseline models: **Random Forest**, **Logistic Regression**, **SVM**.  
+  - Saves trained models in `models/`.  
+
+- **Backtesting**  
+  - Runs equity curve simulation using predicted signals.  
+  - Outputs **PnL reports** in `reports/equity_curve.csv`.  
+
+- **Reports & Explainability**  
+  - Generates **equity curve visualizations**.  
+  - Future-ready for **SHAP/LIME feature explainability**.  
+
+---
 
 > ⚠️ The NSE endpoints in this demo are **unofficial** and may change or rate-limit traffic.
 > For production-grade, use **licensed data feeds** or **broker APIs** (Zerodha, Upstox, Angel One).
@@ -56,19 +89,50 @@ trading-pipeline/
 ```
 
 ---
+## 📊 Pipeline Flow
 
-## Notes & Next Steps
+- Step-by-step flow:
 
-1. **Scheduling**: Use cron or Windows Task Scheduler to run daily after market close.
-   - Example cron: `15 17 * * 1-5 /usr/bin/python -m src.pipeline`
-2. **Persistence**: Add SQLite/Postgres write steps for data & predictions.
-3. **Better Validation**: Add **walk-forward** train/test split and out-of-sample backtest.
-4. **Live Signals**: Replace archives with broker/websocket feeds for intraday signals.
-5. **Risk**: Add stop-loss/take-profit, position sizing, and transaction cost modeling.
-6. **Explainability**: Log feature importances, SHAP values for decisions.
-7. **LLM/RAG**: Enrich signals with **news sentiment** (headlines → embeddings) for event-driven trading.
+ - Data Ingestion → NSE Bhavcopy
+
+ - Feature Engineering → SMA, EMA, RSI, MACD, ATR, Bollinger
+
+ - Labeling → Buy / Hold / Sell, Next-day return
+
+ - Model Training → ML classifiers/regressors
+
+ - Backtesting → Equity curve, PnL simulation
+
+ - Reports & Outputs → CSVs, models, performance plots
+---
+## 📈 Sample Equity Curve
+
+The pipeline generates equity_curve.csv, which can be plotted for strategy performance.
+
+- Example output:
+
+ - Sharpe ratio, cumulative return, drawdown analysis
+
+ - Equity curve visualization for backtest period
+
+## 🔮 Future Enhancements
+
+- Scheduling → Automate daily runs via cron/Task Scheduler.
+
+- Persistence → Store results in SQLite/Postgres.
+
+- Validation → Add walk-forward testing.
+
+- Live Signals → Plug into broker APIs (Zerodha, Upstox, Angel One).
+
+- Risk Management → Stop-loss, take-profit, position sizing.
+
+- Explainability → SHAP values, feature importance logs.
+
+- LLM/RAG Integration → Add news sentiment signals (headlines → embeddings → event-driven trading).
 
 ---
+## ⚠️ Disclaimer
 
-## Disclaimer
-This code is for **educational purposes** only. It is **not financial advice** and should not be used to place trades without further testing and regulatory compliance.
+**This project is for educational & research purposes only.**
+- It is not financial advice and should not be used to make live trading decisions without thorough testing, compliance, and licensed data feeds.

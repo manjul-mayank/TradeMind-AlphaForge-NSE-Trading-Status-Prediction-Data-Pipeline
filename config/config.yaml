@@ -1,0 +1,31 @@
+# Basic configuration for the trading pipeline
+symbols: ["RELIANCE", "TCS", "INFY", "HDFCBANK", "ICICIBANK"]
+index_name: "NIFTY 50"
+lookback_days: 120
+train_test_split_date: "2024-09-01"   # YYYY-MM-DD; rows strictly < date go to train; >= date go to test
+features:
+  prices: ["close", "volume"]
+  indicators:
+    - sma_5
+    - sma_20
+    - ema_12
+    - ema_26
+    - rsi_14
+    - macd_12_26_9
+    - bbands_20_2
+    - atr_14
+labeling:
+  task: "classification"   # "classification" | "regression"
+  horizon_days: 1          # predict next-day return
+  threshold_pct: 0.5       # for classification: buy if return >= +0.5%, sell if <= -0.5%, else hold
+model:
+  type: "random_forest"    # "logreg" | "random_forest"
+  params:
+    n_estimators: 300
+    max_depth: 6
+    random_state: 42
+storage:
+  raw_dir: "./data/raw"
+  processed_dir: "./data/processed"
+  models_dir: "./models"
+  reports_dir: "./reports"
